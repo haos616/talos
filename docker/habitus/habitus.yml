@@ -1,0 +1,17 @@
+build:
+  version: 2016-03-14
+  steps:
+    # Postgres
+    postgres:
+      name: _env(HUB_HOST)/_env(PROJECT_NAME)/postgres:_env(PROJECT_VERSION)
+      context: docker/images/postgres
+      dockerfile: Dockerfile
+    # Nginx base
+    nginx-base:
+      name: _env(HUB_HOST)/_env(PROJECT_NAME)/nginx-base:_env(PROJECT_VERSION)
+      context: docker/images/nginx
+      dockerfile: Dockerfile
+    # Django base
+    django-base:
+      name: _env(HUB_HOST)/_env(PROJECT_NAME)/django-base:_env(PROJECT_VERSION)
+      dockerfile: docker/images/django/Dockerfile

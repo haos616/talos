@@ -1,0 +1,18 @@
+.editorconfig
+.gitignore
+Jenkinsfile
+README.md
+
+# Git
+.git/
+
+# Server
+*.pyc
+__pycache__
+server/talos/settings/.env
+server/talos/settings/.env.local
+server/public/media/*
+server/public/static/*
+
+# Ansible
+ansible/

@@ -1,0 +1,13 @@
+build:
+  version: 2016-03-14
+  steps:
+    # Nginx
+    nginx:
+      name: _env(HUB_HOST)/_env(PROJECT_NAME)/nginx:_env(PROJECT_VERSION)
+      dockerfile: docker/images/nginx/live/Dockerfile
+      depends_on:
+        - django
+    # Django
+    django:
+      name: _env(HUB_HOST)/_env(PROJECT_NAME)/django:_env(PROJECT_VERSION)
+      dockerfile: docker/images/django/live/Dockerfile

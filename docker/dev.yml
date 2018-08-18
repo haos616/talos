@@ -1,0 +1,29 @@
+version: "3.5"
+services:
+  django:
+    image: ${HUB_HOST}/${PROJECT_NAME}/django-base:${PROJECT_VERSION}
+    volumes:
+      - '../server/:/usr/local/code'
+    ports:
+      - 127.0.0.1:8000:8000
+  nginx:
+    image: ${HUB_HOST}/${PROJECT_NAME}/nginx-base:${PROJECT_VERSION}
+    env_file:
+      - envs/dev/nginx.env
+    volumes:
+      - '../server/public:/usr/local/public'
+      - './images/nginx/files:/usr/local/docker'
+    ports:
+      - '127.0.0.1:81:80'
+    depends_on:
+      - django
+  nginx-test:
+    image: nginx:1.14.0
+    env_file:
+      - envs/dev/nginx.env
+    volumes:
+      - './images/nginx-test/files:/etc/nginx/conf.d'
+    ports:
+      - '127.0.0.1:80:80'
+    depends_on:
+      - nginx

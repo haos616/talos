@@ -1,0 +1,30 @@
+version: "3.5"
+
+x-images:
+  &django-image
+  ${HUB_HOST}/${PROJECT_NAME}/django:${PROJECT_VERSION}
+
+volumes:
+  postgres_data: {}
+
+services:
+  redis:
+    image: redis:4.0.10
+  postgres:
+    image: ${HUB_HOST}/${PROJECT_NAME}/postgres:${PROJECT_VERSION}
+    env_file:
+      - envs/postgres.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  django:
+    image: *django-image
+    env_file:
+      - envs/django_base.env
+      - envs/django.env
+    depends_on:
+      - postgres
+      - redis
+  nginx:
+    image: ${HUB_HOST}/${PROJECT_NAME}/nginx:${PROJECT_VERSION}
+    depends_on:
+      - django

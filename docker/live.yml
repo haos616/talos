@@ -1,0 +1,35 @@
+version: "3.5"
+
+x-logging:
+  &live-logging
+  options:
+    max-size: '100m'
+    max-file: '5'
+  driver: json-file
+x-django-media-volume:
+  &django-media-volume
+  'django_media:/usr/local/code/public/media/'
+x-restart:
+  &live-restart
+  unless-stopped
+
+volumes:
+  django_media: {}
+  celery_schedule: {}
+services:
+  redis:
+    logging: *live-logging
+    restart: *live-restart
+  postgres:
+    logging: *live-logging
+    restart: *live-restart
+  django:
+    logging: *live-logging
+    restart: *live-restart
+    volumes:
+      - *django-media-volume
+  nginx:
+    logging: *live-logging
+    restart: *live-restart
+    volumes:
+      - *django-media-volume

@@ -1,0 +1,31 @@
+version: "3.5"
+services:
+  habitus:
+    image: ${HUB_HOST}/${PROJECT_NAME}/habitus:${PROJECT_VERSION}
+    build: .
+    working_dir: /project
+    environment:
+      HUB_HOST: '${HUB_HOST}'
+      PROJECT_NAME: '${PROJECT_NAME}'
+      PROJECT_VERSION: '${PROJECT_VERSION}'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - '../..:/project'
+    command:
+      - '-f'
+      - 'docker/habitus/habitus.yml'
+
+  habitus-live:
+    image: ${HUB_HOST}/${PROJECT_NAME}/habitus:${PROJECT_VERSION}
+    build: .
+    working_dir: /project
+    environment:
+      HUB_HOST: '${HUB_HOST}'
+      PROJECT_NAME: '${PROJECT_NAME}'
+      PROJECT_VERSION: '${PROJECT_VERSION}'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - '../..:/project'
+    command:
+      - '-f'
+      - 'docker/habitus/habitus-live.yml'

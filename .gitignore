@@ -1,0 +1,26 @@
+# PyCharm
+.idea/
+
+# Python
+*.pyc
+
+# Docker
+docker/.env
+Dockerfile.generated
+
+# Server
+server/talos/settings/.env
+server/talos/settings/.env.local
+
+# Media dir
+!server/public/media/
+server/public/media/*
+!server/public/media/.gitkeep
+
+# Static dir
+!server/public/static/
+server/public/static/*
+!server/public/static/.gitkeep
+
+# Ansible
+ansible/
